@@ -5,6 +5,10 @@
 #-------------------------------------------------
 
 QT       += core gui
+
+
+#Ежели QT v5- закомментировать строчку DEFINES Qt4 и
+#Расскоменитировать QT += serialport
 QT       += serialport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -33,3 +37,6 @@ HEADERS += \
 
 FORMS += \
         mainwindow.ui
+
+#unix:{DEFINES += LINUXBASE}
+
