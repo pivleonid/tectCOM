@@ -55,6 +55,7 @@ public slots:
     void clearData();
     void transmitStop();
     void transmitStart();
+    void closeEvent(QCloseEvent* event);
 };
 
 

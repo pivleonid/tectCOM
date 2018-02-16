@@ -5,7 +5,7 @@
 #include <QByteArray>
 #include <QBitArray>
 #include <QDesktopWidget>
-
+#include <QSettings>
 
 #include <QDebug>
 
@@ -20,7 +20,18 @@ MainWindow::MainWindow(QWidget *parent) :
     QDesktopWidget* pwdg = QApplication::desktop();
     move(pwdg->width()/2-width()/2, pwdg->height()/2-height()/2);
 
+#ifdef LINUXBASE
+    QTextCodec* codec = QTextCodec::codecForName("UTF-8");
+    QTextCodec::setCodecForLocale(codec);
+    QTextCodec::setCodecForCStrings(codec);
+    QTextCodec::setCodecForTr(codec);
+    ui->serialPortInfoBox->addItem("COM1");
+    ui->serialPortInfoBox->addItem("COM2");
+#endif
+
+
 #ifndef LINUXBASE
+
 const QList<QSerialPortInfo> infos = QSerialPortInfo::availablePorts();
 QStringList ports;
 for (const QSerialPortInfo &info : infos) {
@@ -41,16 +52,41 @@ connect(port, &QSerialPort::readyRead, this, &MainWindow::readData);
     tmr = new QTimer();
     connect(tmr, SIGNAL(timeout()), this, SLOT(transmitSend()));
     ui->startBtn->setEnabled(false);
+    ui->stopBtn->setEnabled(false);
 
 
-#ifdef LINUXBASE
-    ui->serialPortInfoBox->addItem("COM1");
-    ui->serialPortInfoBox->addItem("COM2");
-#endif
 
+
+
+    QRegExp codeReg("[0-1]{1,}");
+QRegExpValidator *ipValidator = new QRegExpValidator(codeReg, this);
+ui->lineEdit->setValidator(ipValidator);
+QRegExp codeReg1("[0-9]{1,10}");
+QRegExpValidator *ipValidator1 = new QRegExpValidator(codeReg1, this);
+ui->timerLE->setValidator(ipValidator1);
+
+
+QSettings settings( "testCOM.conf", QSettings::IniFormat );
+settings.beginGroup( "saveState" );
+
+ui->boudrateBox->setCurrentText(settings.value("boudrateBox").toString());
+ui->lineEdit->setText(settings.value("lineEdit").toString());
+ui->timerLE->setText(settings.value("timerLE").toString());
+settings.endGroup();
+
+
+//Подсказки
+ui->serialPortInfoBox->setToolTip("Выбор COM порта");
+ui->boudrateBox->setToolTip("Выбор скорости передачи данных");
+ui->lineEdit->setToolTip("Битовая последовательность. \nСтарший байт слева.");
+ui->startBtn->setToolTip("Начало тестирования");
+ui->stopBtn->setToolTip("Остановка тестирования");
+ui->timerLE->setToolTip("Установка таймера");
 }
 
 void MainWindow::transmitStart(){
+    ui->startBtn->setEnabled(false);
+    ui->stopBtn->setEnabled(true);
      QString str = ui->lineEdit->text();
     int n = str.count();
     // ежели битов меньше 8 - добавляю нули
@@ -108,7 +144,7 @@ void MainWindow::transmitStop(){
 
     tmr->stop();
     ui->startBtn->setEnabled(true);
-    ui->startBtn->setEnabled(false);
+    ui->stopBtn->setEnabled(false);
 }
 
 void MainWindow::clearData(){
@@ -151,7 +187,7 @@ port->write(dataByte);
 
 void MainWindow::transmitConnect(){
 #ifdef LINUXBASE
-    QString port = ui->serialPortInfoBox->currentText();
+QString port = ui->serialPortInfoBox->currentText();
     if( port == "COM1")
         fd = open("/dev/ttyS1", O_RDWR | O_NOCTTY );
     if(port == "COM2")
@@ -187,6 +223,7 @@ void MainWindow::transmitConnect(){
     tcsetattr(fd, TCSANOW, &term);
 #endif
 #ifndef LINUXBASE
+
     port->setPortName(ui->serialPortInfoBox->currentText());
     port->setBaudRate(ui->boudrateBox->currentText().toInt());
     port->setDataBits(QSerialPort::Data8);
@@ -198,10 +235,13 @@ void MainWindow::transmitConnect(){
         QMessageBox::critical(this, tr("Error"), port->errorString());
     }
     ui->startBtn->setEnabled(true);
+    ui->connectBtn->setEnabled(false);
+     ui->disconnectBtn->setEnabled(true);
 #endif
 
 }
-void MainWindow::transmitDisconnect(){
+void MainWindow::
+transmitDisconnect(){
 #ifndef LINUXBASE
     if (port->isOpen())
         port->close();
@@ -211,6 +251,10 @@ void MainWindow::transmitDisconnect(){
         transmitStop();
     func(fd);
 #endif
+    ui->startBtn->setEnabled(true);
+    ui->stopBtn->setEnabled(false);
+    ui->connectBtn->setEnabled(true);
+     ui->disconnectBtn->setEnabled(false);
 }
 
 void MainWindow::readData(){
@@ -228,3 +272,16 @@ void func(int fd){
     close(fd);
 }
 #endif
+
+
+void MainWindow::closeEvent(QCloseEvent* event){
+
+    QSettings settings( "testCOM.conf", QSettings::IniFormat );
+    settings.beginGroup( "saveState" );
+    settings.setValue( "boudrateBox", ui->boudrateBox->currentText() );
+    settings.setValue( "lineEdit",   ui->lineEdit->text() );
+    settings.setValue( "timerLE",   ui->timerLE->text() );
+    settings.endGroup();
+}
+
+

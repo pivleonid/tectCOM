@@ -15,6 +15,8 @@
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QGridLayout>
+#include <QtWidgets/QGroupBox>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
@@ -29,11 +31,10 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralWidget;
+    QGridLayout *gridLayout_8;
+    QGroupBox *groupBox;
     QGridLayout *gridLayout_7;
     QGridLayout *gridLayout_3;
-    QGridLayout *gridLayout;
-    QLabel *label_4;
-    QSpacerItem *horizontalSpacer;
     QGridLayout *gridLayout_2;
     QPushButton *connectBtn;
     QLabel *label;
@@ -41,8 +42,9 @@ public:
     QLabel *label_2;
     QComboBox *boudrateBox;
     QPushButton *disconnectBtn;
-    QLabel *label_3;
-    QSpacerItem *horizontalSpacer_2;
+    QGroupBox *groupBox_2;
+    QGridLayout *gridLayout_6;
+    QGridLayout *gridLayout;
     QGridLayout *gridLayout_4;
     QPushButton *hightBtn;
     QLineEdit *lineEdit;
@@ -52,7 +54,7 @@ public:
     QLabel *label_5;
     QLineEdit *timerLE;
     QSpacerItem *horizontalSpacer_3;
-    QGridLayout *gridLayout_6;
+    QHBoxLayout *horizontalLayout;
     QPushButton *startBtn;
     QPushButton *stopBtn;
     QSpacerItem *horizontalSpacer_4;
@@ -61,119 +63,115 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(745, 258);
+        MainWindow->resize(652, 265);
         QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(MainWindow->sizePolicy().hasHeightForWidth());
         MainWindow->setSizePolicy(sizePolicy);
+        MainWindow->setMinimumSize(QSize(652, 265));
+        MainWindow->setMaximumSize(QSize(652, 265));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        gridLayout_7 = new QGridLayout(centralWidget);
+        gridLayout_8 = new QGridLayout(centralWidget);
+        gridLayout_8->setSpacing(6);
+        gridLayout_8->setContentsMargins(11, 11, 11, 11);
+        gridLayout_8->setObjectName(QStringLiteral("gridLayout_8"));
+        groupBox = new QGroupBox(centralWidget);
+        groupBox->setObjectName(QStringLiteral("groupBox"));
+        gridLayout_7 = new QGridLayout(groupBox);
         gridLayout_7->setSpacing(6);
         gridLayout_7->setContentsMargins(11, 11, 11, 11);
         gridLayout_7->setObjectName(QStringLiteral("gridLayout_7"));
         gridLayout_3 = new QGridLayout();
         gridLayout_3->setSpacing(6);
         gridLayout_3->setObjectName(QStringLiteral("gridLayout_3"));
-        gridLayout = new QGridLayout();
-        gridLayout->setSpacing(6);
-        gridLayout->setObjectName(QStringLiteral("gridLayout"));
-        label_4 = new QLabel(centralWidget);
-        label_4->setObjectName(QStringLiteral("label_4"));
-
-        gridLayout->addWidget(label_4, 0, 0, 1, 1);
-
-        horizontalSpacer = new QSpacerItem(298, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        gridLayout->addItem(horizontalSpacer, 0, 1, 1, 1);
-
-
-        gridLayout_3->addLayout(gridLayout, 0, 0, 1, 2);
-
         gridLayout_2 = new QGridLayout();
         gridLayout_2->setSpacing(6);
         gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
-        connectBtn = new QPushButton(centralWidget);
+        connectBtn = new QPushButton(groupBox);
         connectBtn->setObjectName(QStringLiteral("connectBtn"));
 
         gridLayout_2->addWidget(connectBtn, 0, 4, 1, 1);
 
-        label = new QLabel(centralWidget);
+        label = new QLabel(groupBox);
         label->setObjectName(QStringLiteral("label"));
 
         gridLayout_2->addWidget(label, 0, 0, 1, 1);
 
-        serialPortInfoBox = new QComboBox(centralWidget);
+        serialPortInfoBox = new QComboBox(groupBox);
         serialPortInfoBox->setObjectName(QStringLiteral("serialPortInfoBox"));
 
         gridLayout_2->addWidget(serialPortInfoBox, 0, 1, 1, 1);
 
-        label_2 = new QLabel(centralWidget);
+        label_2 = new QLabel(groupBox);
         label_2->setObjectName(QStringLiteral("label_2"));
 
         gridLayout_2->addWidget(label_2, 0, 2, 1, 1);
 
-        boudrateBox = new QComboBox(centralWidget);
+        boudrateBox = new QComboBox(groupBox);
         boudrateBox->setObjectName(QStringLiteral("boudrateBox"));
 
         gridLayout_2->addWidget(boudrateBox, 0, 3, 1, 1);
 
-        disconnectBtn = new QPushButton(centralWidget);
+        disconnectBtn = new QPushButton(groupBox);
         disconnectBtn->setObjectName(QStringLiteral("disconnectBtn"));
 
         gridLayout_2->addWidget(disconnectBtn, 0, 5, 1, 1);
 
 
-        gridLayout_3->addLayout(gridLayout_2, 1, 0, 1, 2);
-
-        label_3 = new QLabel(centralWidget);
-        label_3->setObjectName(QStringLiteral("label_3"));
-
-        gridLayout_3->addWidget(label_3, 2, 0, 1, 1);
-
-        horizontalSpacer_2 = new QSpacerItem(319, 17, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        gridLayout_3->addItem(horizontalSpacer_2, 2, 1, 1, 1);
+        gridLayout_3->addLayout(gridLayout_2, 0, 0, 1, 2);
 
 
         gridLayout_7->addLayout(gridLayout_3, 0, 0, 1, 1);
 
+
+        gridLayout_8->addWidget(groupBox, 0, 0, 1, 1);
+
+        groupBox_2 = new QGroupBox(centralWidget);
+        groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
+        gridLayout_6 = new QGridLayout(groupBox_2);
+        gridLayout_6->setSpacing(6);
+        gridLayout_6->setContentsMargins(11, 11, 11, 11);
+        gridLayout_6->setObjectName(QStringLiteral("gridLayout_6"));
+        gridLayout = new QGridLayout();
+        gridLayout->setSpacing(6);
+        gridLayout->setObjectName(QStringLiteral("gridLayout"));
         gridLayout_4 = new QGridLayout();
         gridLayout_4->setSpacing(6);
         gridLayout_4->setObjectName(QStringLiteral("gridLayout_4"));
-        hightBtn = new QPushButton(centralWidget);
+        hightBtn = new QPushButton(groupBox_2);
         hightBtn->setObjectName(QStringLiteral("hightBtn"));
 
         gridLayout_4->addWidget(hightBtn, 0, 1, 1, 1);
 
-        lineEdit = new QLineEdit(centralWidget);
+        lineEdit = new QLineEdit(groupBox_2);
         lineEdit->setObjectName(QStringLiteral("lineEdit"));
 
         gridLayout_4->addWidget(lineEdit, 0, 2, 1, 1);
 
-        lowBtn = new QPushButton(centralWidget);
+        lowBtn = new QPushButton(groupBox_2);
         lowBtn->setObjectName(QStringLiteral("lowBtn"));
 
         gridLayout_4->addWidget(lowBtn, 0, 0, 1, 1);
 
-        ClearBtn = new QPushButton(centralWidget);
+        ClearBtn = new QPushButton(groupBox_2);
         ClearBtn->setObjectName(QStringLiteral("ClearBtn"));
 
         gridLayout_4->addWidget(ClearBtn, 0, 3, 1, 1);
 
 
-        gridLayout_7->addLayout(gridLayout_4, 1, 0, 1, 1);
+        gridLayout->addLayout(gridLayout_4, 0, 0, 1, 1);
 
         gridLayout_5 = new QGridLayout();
         gridLayout_5->setSpacing(6);
         gridLayout_5->setObjectName(QStringLiteral("gridLayout_5"));
-        label_5 = new QLabel(centralWidget);
+        label_5 = new QLabel(groupBox_2);
         label_5->setObjectName(QStringLiteral("label_5"));
 
         gridLayout_5->addWidget(label_5, 0, 0, 1, 1);
 
-        timerLE = new QLineEdit(centralWidget);
+        timerLE = new QLineEdit(groupBox_2);
         timerLE->setObjectName(QStringLiteral("timerLE"));
         sizePolicy.setHeightForWidth(timerLE->sizePolicy().hasHeightForWidth());
         timerLE->setSizePolicy(sizePolicy);
@@ -185,27 +183,33 @@ public:
         gridLayout_5->addItem(horizontalSpacer_3, 0, 2, 1, 1);
 
 
-        gridLayout_7->addLayout(gridLayout_5, 2, 0, 1, 1);
+        gridLayout->addLayout(gridLayout_5, 1, 0, 1, 1);
 
-        gridLayout_6 = new QGridLayout();
-        gridLayout_6->setSpacing(6);
-        gridLayout_6->setObjectName(QStringLiteral("gridLayout_6"));
+
+        gridLayout_6->addLayout(gridLayout, 0, 0, 1, 1);
+
+
+        gridLayout_8->addWidget(groupBox_2, 1, 0, 1, 1);
+
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setSpacing(6);
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         startBtn = new QPushButton(centralWidget);
         startBtn->setObjectName(QStringLiteral("startBtn"));
 
-        gridLayout_6->addWidget(startBtn, 0, 0, 1, 1);
+        horizontalLayout->addWidget(startBtn);
 
         stopBtn = new QPushButton(centralWidget);
         stopBtn->setObjectName(QStringLiteral("stopBtn"));
 
-        gridLayout_6->addWidget(stopBtn, 0, 1, 1, 1);
+        horizontalLayout->addWidget(stopBtn);
 
         horizontalSpacer_4 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        gridLayout_6->addItem(horizontalSpacer_4, 0, 2, 1, 1);
+        horizontalLayout->addItem(horizontalSpacer_4);
 
 
-        gridLayout_7->addLayout(gridLayout_6, 3, 0, 1, 1);
+        gridLayout_8->addLayout(horizontalLayout, 2, 0, 1, 1);
 
         MainWindow->setCentralWidget(centralWidget);
 
@@ -217,7 +221,7 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "\320\242\320\265\321\201\321\202\320\270\321\200\320\276\320\262\320\260\320\275\320\270\320\265 COM \320\277\320\276\321\200\321\202\320\276\320\262 v.1.0.0.0.", Q_NULLPTR));
-        label_4->setText(QApplication::translate("MainWindow", "\320\235\320\260\321\201\321\202\321\200\320\276\320\271\320\272\320\260 COM \320\277\320\276\321\200\321\202\320\260:", Q_NULLPTR));
+        groupBox->setTitle(QApplication::translate("MainWindow", "\320\235\320\260\321\201\321\202\321\200\320\276\320\271\320\272\320\270 COM \320\277\320\276\321\200\321\202\320\260", Q_NULLPTR));
         connectBtn->setText(QApplication::translate("MainWindow", "Connect", Q_NULLPTR));
         label->setText(QApplication::translate("MainWindow", "\320\222\321\213\320\261\321\200\320\260\321\202\321\214 COM \320\277\320\276\321\200\321\202:", Q_NULLPTR));
         label_2->setText(QApplication::translate("MainWindow", "\320\241\320\272\320\276\321\200\320\276\321\201\321\202\321\214 \320\277\320\265\321\200\320\265\320\264\320\260\321\207\320\270:", Q_NULLPTR));
@@ -233,7 +237,7 @@ public:
          << QApplication::translate("MainWindow", "115200", Q_NULLPTR)
         );
         disconnectBtn->setText(QApplication::translate("MainWindow", "Disconnect", Q_NULLPTR));
-        label_3->setText(QApplication::translate("MainWindow", "\320\244\320\276\321\200\320\274\320\270\321\200\320\276\320\262\320\260\320\275\320\270\320\265 \320\277\320\276\321\201\321\213\320\273\320\272\320\270:", Q_NULLPTR));
+        groupBox_2->setTitle(QApplication::translate("MainWindow", "\320\235\320\260\321\201\321\202\321\200\320\276\320\271\320\272\320\260 \320\277\320\265\321\200\320\265\320\264\320\260\321\207\320\270", Q_NULLPTR));
         hightBtn->setText(QApplication::translate("MainWindow", "\"1\"", Q_NULLPTR));
         lineEdit->setText(QApplication::translate("MainWindow", "10101100", Q_NULLPTR));
         lowBtn->setText(QApplication::translate("MainWindow", "\"0\"", Q_NULLPTR));
